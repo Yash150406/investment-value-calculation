@@ -1,0 +1,49 @@
+#include <stdio.h>
+// This is a recursive function to calculate compound interest
+void calculate_compound_interest(double *amount, double rate, int year, int years)
+{
+    // Here Base case: stop recursion after the specified number of years
+    if (year > years)
+    {
+        return;
+    }
+    // To update the amount by applying the compound interest formula for the current year
+    *amount = *amount * (1 + rate);
+    // To recursively call for the next year
+    calculate_compound_interest(amount, rate, year + 1, years);
+}
+int main()
+{
+    double principal, rate, amount;
+    int years;
+    // To input principal amount, annual interest rate, and number of years
+    printf("Enter the initial investment (Principal): ");
+    if (scanf("%lf", &principal) != 1 || principal <= 0)
+    {
+        printf("Invalid input! Please enter a positive numeric value for the principal.\n");
+        return 1; // To exit the program if invalid input is detected
+    }
+    printf("Enter the annual interest rate (in percentage): ");
+    if (scanf("%lf", &rate) != 1 || rate < 0)
+    {
+        printf("Invalid input! Please enter a valid interest rate (0 or positive percentage).\n");
+        return 1;
+        // To exit the program if invalid input is detected
+    }
+    printf("Enter the number of years: ");
+    if (scanf("%d", &years) != 1 || years <= 0)
+    {
+        printf("Invalid input! Please enter a positive integer for the number of years.\n");
+        return 1;
+        // To exit the program if invalid input is detected
+    }
+    // To convert the annual interest rate from percentage to decimal
+    rate = rate / 100;
+    // To start with the initial principal amount
+    amount = principal;
+    // To call the recursive function to calculate compound interest for the specified number of years
+    calculate_compound_interest(&amount, rate, 1, years);
+    // To display the final amount after the specified number of years
+    printf("The investment value after %d years is: %.2lf\n", years, amount);
+    return 0;
+}
